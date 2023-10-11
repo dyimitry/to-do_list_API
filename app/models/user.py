@@ -1,9 +1,11 @@
 from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
 
 from app.core.db import Base
 
 
 class User(Base):
-    name = Column(String(100), nullable=False)
-    surname = Column(String(100), nullable=False)
-    email = Column(String(100), unique=True, nullable=False)
+    first_name = Column(String(100), nullable=False)
+    username = Column(String(100))
+    last_name = Column(String(100))
+    to_do_list = relationship("To_do_list", cascade="delete")
