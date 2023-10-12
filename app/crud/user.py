@@ -1,3 +1,5 @@
+from sqlalchemy import select
+
 from app.core.db import session
 from app.models.user import User
 from app.schemas.user import UserCreateRequest, UserCreateResponse
@@ -21,3 +23,16 @@ def create_user(new_user: UserCreateRequest) -> UserCreateResponse:
 
     return created_user_data
 
+
+def get_users():
+    users = session.execute(select(User))
+    all_users = users.scalars().all()
+    return all_users
+
+
+def get_user(user_id: int):
+    db_user_id = session.execute(
+        select(User).where(User.id == user_id)
+    )
+    db_user = db_user_id.scalars().first()
+    return db_user
