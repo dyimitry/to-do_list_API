@@ -15,7 +15,7 @@ class UserCreateResponse(BaseModel):
     last_name: Optional[str]
 
 
-class UserDB(UserCreateResponse):
+class UserResponse(UserCreateResponse):
     id: int
 
     class Config:

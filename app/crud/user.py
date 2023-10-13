@@ -30,7 +30,7 @@ def get_users():
     return all_users
 
 
-def get_user(user_id: int):
+def get_user_id(user_id: int):
     db_user_id = session.execute(
         select(User).where(User.id == user_id)
     )
