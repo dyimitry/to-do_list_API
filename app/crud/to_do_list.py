@@ -60,11 +60,6 @@ def get_task_id(task_id: int):
 
 def update_task(task_id: int, task: TaskUpdateRequest) -> TaskUpdate:
     task_id = get_task_id(task_id)
-    if task is None:
-        raise HTTPException(
-            status_code=404,
-            detail='Такой задачи не существует!',
-        )
 
     update_data = task.dict(exclude_unset=True)
     obj_data = jsonable_encoder(task_id)
