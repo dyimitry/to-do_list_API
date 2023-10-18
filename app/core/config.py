@@ -1,15 +1,12 @@
-import os
-
-from pydantic import BaseSettings, Field
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    database_url: str = Field(..., env='DATABASE_URL')
-    db_name: str = Field(..., env='POSTGRES_DB')
-    user: str = Field(..., env='POSTGRES_USER')
-    password: str = Field(..., env='POSTGRES_PASSWORD')
-    host: str = Field(..., env='HOST')
-
+    database_url: str
+    postgres_db: str
+    postgres_user: str
+    postgres_password: str
+    host: str
 
     class Config:
         env_file = '.env'

@@ -24,7 +24,6 @@ class TaskResponse(TaskCreateResponse):
         orm_mode = True
 
 
-
 class TaskUpdateRequest(BaseModel):
     name: Optional[str]
     description: Optional[str]

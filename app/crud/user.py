@@ -7,10 +7,13 @@ from app.schemas.user import UserCreateRequest, UserCreateResponse
 
 def create_user(new_user: UserCreateRequest) -> UserCreateResponse:
     db_user_model = User(
+        user_id=new_user.user_id,
         first_name=new_user.first_name,
         username=new_user.username,
         last_name=new_user.last_name
     )
+    # users = session.query(User.first_name).all()
+
 
     session.add(db_user_model)
     session.commit()
