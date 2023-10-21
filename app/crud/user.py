@@ -12,18 +12,18 @@ def create_user(new_user: UserCreateRequest) -> UserCreateResponse:
         username=new_user.username,
         last_name=new_user.last_name
     )
-    # users = session.query(User.first_name).all()
+    users = session.query(User.user_id).all()
+    if (db_user_model.user_id,) not in users:
 
-
-    session.add(db_user_model)
-    session.commit()
+        session.add(db_user_model)
+        session.commit()
 
     created_user_data: UserCreateResponse = UserCreateResponse(
+        user_id=db_user_model.user_id,
         first_name=db_user_model.first_name,
         username=db_user_model.username,
         last_name=db_user_model.last_name
     )
-
     return created_user_data
 
 

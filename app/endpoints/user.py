@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter, HTTPException
 
 from app.crud.user import create_user as create_user_controller, get_users, get_user_id
@@ -12,7 +14,7 @@ def create_new_user(user: UserCreateRequest):
     return new_user
 
 
-@router.get('/', response_model=list[UserResponse], response_model_exclude_none=True)
+@router.get('/', response_model=List[UserResponse], response_model_exclude_none=True)
 def get_all_users():
     users = get_users()
     return users

@@ -9,13 +9,14 @@ services:
     env_file:
       - .env
 
-#  backend:
-#    build: .
-#    restart: always
-#    depends_on:
-#      - postgres-db
-#    env_file:
-#      - .env
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres-db
+    env_file:
+      - .env
 
 
 

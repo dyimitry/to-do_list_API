@@ -10,7 +10,7 @@ from app.core.db import session
 
 def create_new_task(task: TaskCreateRequest) -> TaskCreateResponse:
     db_user_id = session.execute(
-        select(User).where(User.id == task.user_id)
+        select(User).where(User.user_id == task.user_id)
     )
     db_user = db_user_id.scalars().first()
     if db_user is None:

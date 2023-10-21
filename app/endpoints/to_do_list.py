@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter
 
 from app.crud.to_do_list import create_new_task, get_task_id, update_task, task_delete, get_tasks_userid
@@ -13,7 +15,7 @@ def create_task(task: TaskCreateRequest):
     return new_task
 
 
-@router.get('/user_id/{user_id}/', response_model=list[TaskResponse])
+@router.get('/user_id/{user_id}/', response_model=List[TaskResponse])
 def get_all_tasks(user_id: int):
     tasks = get_tasks_userid(user_id)
     return tasks

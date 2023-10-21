@@ -1,12 +1,17 @@
 FROM python:3.8-slim
 
-RUN mkdir /app
+RUN mkdir /src
 
-COPY ./ /app
+COPY ./requirements.txt /src
 
-RUN pip install -r /app/requirements.txt --no-cache-dir
+RUN pip install -r /src/requirements.txt --no-cache-dir
 
-WORKDIR /app
+COPY ./alembic /src/alembic
+COPY ./app /src/app
+COPY ./main.py /src
+COPY ./.env /src
+WORKDIR /src
+
 CMD ["python", "main.py"]
 
 #CMD ["python", "main.py", "runserver"]
