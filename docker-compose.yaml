@@ -35,14 +35,14 @@ services:
     env_file:
       - .env
 
-#  bot:
-#    image: to_do_list_api
-#    command: python bot.py
-#    depends_on:
-#      backend:
-#        condition: service_started
-#    env_file:
-#      - .env
+  bot:
+    image: to_do_list_api
+    command: python bot.py
+    depends_on:
+      backend:
+        condition: service_started
+    env_file:
+      - .env
 
 volumes:
   postgres-db:
