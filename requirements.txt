@@ -57,3 +57,15 @@ typing_extensions==4.8.0
 uvicorn==0.17.6
 watchgod==0.8.2
 websockets==11.0.3
+annotated-types==0.6.0
+certifi==2023.7.22
+charset-normalizer==3.3.0
+greenlet==3.0.0
+idna==3.4
+pydantic==2.4.2
+pydantic_core==2.10.1
+pyTelegramBotAPI==4.14.0
+python-dotenv==1.0.0
+requests==2.31.0
+typing_extensions==4.8.0
+urllib3==2.0.7

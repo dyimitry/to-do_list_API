@@ -6,12 +6,17 @@ COPY ./requirements.txt /src
 
 RUN pip install -r /src/requirements.txt --no-cache-dir
 
-COPY ./alembic /src/alembic
-COPY ./app /src/app
-COPY ./main.py /src
 COPY ./.env /src
+
+COPY ./alembic /src/alembic
+COPY ./alembic.ini /src
+
+COPY ./app /src/app
+COPY ./backend.py /src
+
+COPY ./telegram_bot /src/telegram_bot
+COPY ./bot.py /src
+
 WORKDIR /src
 
-CMD ["python", "main.py"]
-
-#CMD ["python", "main.py", "runserver"]
+CMD ["python", "backend.py"]

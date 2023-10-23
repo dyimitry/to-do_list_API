@@ -6,7 +6,9 @@ class Settings(BaseSettings):
     postgres_db: str
     postgres_user: str
     postgres_password: str
-    host: str
+    bot_backend_host: str
+    token: str
+    bot_backend_port: int
 
     class Config:
         env_file = '.env'
