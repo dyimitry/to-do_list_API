@@ -21,22 +21,11 @@ pred_message = ''
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    # user = UserPydanModel(
-    #     us_id = message.from_user.id,
-    #     user_name=message.from_user.first_name,
-    #     username=message.from_user.username,
-    #     last_name=message.from_user.last_name,
-    # )
     us_id = message.from_user.id
     us_name = message.from_user.first_name
     us_sname = message.from_user.last_name
     username = message.from_user.username
-    # body = {
-    #     "user_id": user_id,
-    #     "first_name": first_name,
-    #     "username": username,
-    #     "last_name": last_name
-    # }
+
     result = clientDB.registration(us_id, us_name, us_sname, username)
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=False)
@@ -47,18 +36,6 @@ def start(message):
         message.chat.id,
         text=f"Привет, {message.from_user.first_name}! Не запоминай все, записывай в меня и я тебе напомню!",
         reply_markup=markup)
-
-
-# @bot.callback_query_handler(lambda c: c.data.startswith('create_task'))
-# @bot.callback_query_handler(func=lambda call: call.data == "create_task")
-# def create_task(call):
-#     a = 1
-#     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-#     btn1 = types.InlineKeyboardButton("Напишите название задачи", callback_data="description_task")
-#     markup.add(btn1)
-#     bot.send_message(
-#         call.message.chat.id,
-#         text="Напишите название задачи")
 
 @bot.message_handler(content_types=['text'])
 def start(message):
@@ -111,7 +88,12 @@ def start(message):
                  "Задача №:«Необходимо написать»\n"
                  "Статус: «Необходимо написать»")
     # ИЗМЕНИТЬ ЗАДАЧУ
-    if message.text.startswith("Задача №:"):
+    if message.text.startswith("Задача №"):
+        if not message.text.startswith("Задача №:"):
+            bot.send_message(
+                message.chat.id,
+                text='Необходимо установить «:» после №')
+            return
         message_lines = message.text.split("\n")
 
         number = message_lines[0].split(":")[1].strip()
@@ -151,6 +133,9 @@ def start(message):
             user_id = message.from_user.id
             status = False
             result = clientDB.create_task(task_name, task_descripton, status, user_id)
+            bot.send_message(
+                message.chat.id,
+                text='Задача успешно создана. Вы можете ее посмотреть в списке задач.')
         except:
             bot.send_message(
                 message.chat.id,
