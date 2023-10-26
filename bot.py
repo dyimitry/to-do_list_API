@@ -37,6 +37,7 @@ def start(message):
         text=f"Привет, {message.from_user.first_name}! Не запоминай все, записывай в меня и я тебе напомню!",
         reply_markup=markup)
 
+
 @bot.message_handler(content_types=['text'])
 def start(message):
     if message.text == "Создать новую задачу":
@@ -45,7 +46,8 @@ def start(message):
             text="Напишите свою задачу в формате:\n"
                  "Создать задачу\n"
                  "Название задачи: «Необходимо написать»\n"
-                 "Описание задачи: «Необходимо написать»")
+                 "Описание задачи: «Необходимо написать»\n"
+                 "Срочность задачи: «Не срочно»/«Срочно»/«Очень срочно»")
 
     if message.text == "Показать мои задачи":
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=False)
@@ -54,9 +56,10 @@ def start(message):
         markup.add(btn1, btn2)
         user_id = message.from_user.id
         result = clientDB.get_tasks(user_id)
+
         stroka = ''
         for i in result:
-            stroka += f"Задача: №{i['id']}, Название задачи:{i['name']}, Описание задачи:{i['description']}, Статус:{i['status']}\n"
+            stroka += f"Задача: №{i['id']}, Название задачи:{i['name']}, Описание задачи:{i['description']}, Статус:{i['status']}, Срочность:{i['urgency']}\n"
         bot.send_message(
             message.chat.id,
             text=stroka,
@@ -114,8 +117,8 @@ def start(message):
                     message.chat.id,
                     text=f"{result_get_task['detail']}")
                 return
-            name = result_get_task['name']
-            description = result_get_task['description']
+            name = result_get_task['name'].strip()
+            description = result_get_task['description'].strip()
             result = clientDB.update_task(number, name, description, stat)
             bot.send_message(
                 message.chat.id,
@@ -130,9 +133,11 @@ def start(message):
         try:
             task_name = message_lines[1].split(":")[1]
             task_descripton = message_lines[2].split(":")[1]
+            task_urgency = message_lines[3].split(":")[1].strip()
             user_id = message.from_user.id
             status = False
-            result = clientDB.create_task(task_name, task_descripton, status, user_id)
+
+            result = clientDB.create_task(task_name, task_descripton, status, task_urgency, user_id)
             bot.send_message(
                 message.chat.id,
                 text='Задача успешно создана. Вы можете ее посмотреть в списке задач.')

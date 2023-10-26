@@ -7,6 +7,7 @@ class TaskCreateRequest(BaseModel):
     name: str
     description: str
     status: bool
+    urgency: str
     user_id: int
 
 
@@ -14,6 +15,7 @@ class TaskCreateResponse(BaseModel):
     name: str
     description: str
     status: bool
+    urgency: str
     user_id: int
 
 

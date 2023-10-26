@@ -7,4 +7,5 @@ class To_do_list(Base):
     name = Column(String(100), nullable=False)
     description = Column(String(200))
     status = Column(Boolean, default=False)
+    urgency = Column(String(100))
     user_id = Column(Integer, ForeignKey('user.user_id'))

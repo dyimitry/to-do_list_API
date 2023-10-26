@@ -23,6 +23,7 @@ def create_new_task(task: TaskCreateRequest) -> TaskCreateResponse:
         name=task.name,
         description=task.description,
         status=task.status,
+        urgency=task.urgency,
         user_id=task.user_id
     )
 
@@ -33,6 +34,7 @@ def create_new_task(task: TaskCreateRequest) -> TaskCreateResponse:
         name=db_task_model.name,
         description=db_task_model.description,
         status=db_task_model.status,
+        urgency=db_task_model.urgency,
         user_id=db_task_model.user_id
     )
     return created_task_data
@@ -76,7 +78,8 @@ def update_task(task_id: int, task: TaskUpdateRequest) -> TaskUpdate:
         description=task_id.description,
         status=task_id.status,
         user_id=task_id.user_id,
-        id=task_id.id
+        urgency=task_id.urgency,
+        id=task_id.id,
     )
     return change_task
 
