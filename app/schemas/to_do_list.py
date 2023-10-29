@@ -1,5 +1,6 @@
 from typing import Optional
 
+from datetime import datetime
 from pydantic import BaseModel
 
 
@@ -16,6 +17,8 @@ class TaskCreateResponse(BaseModel):
     description: str
     status: bool
     urgency: str
+    created_at: datetime
+    last_notification: Optional[datetime]
     user_id: int
 
 

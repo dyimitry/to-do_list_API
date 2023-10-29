@@ -24,7 +24,7 @@ def create_new_task(task: TaskCreateRequest) -> TaskCreateResponse:
         description=task.description,
         status=task.status,
         urgency=task.urgency,
-        user_id=task.user_id
+        user_id=task.user_id,
     )
 
     session.add(db_task_model)
@@ -35,7 +35,9 @@ def create_new_task(task: TaskCreateRequest) -> TaskCreateResponse:
         description=db_task_model.description,
         status=db_task_model.status,
         urgency=db_task_model.urgency,
-        user_id=db_task_model.user_id
+        created_at=db_task_model.created_at,
+        last_notification=db_task_model.last_notification,
+        user_id=db_task_model.user_id,
     )
     return created_task_data
 
@@ -94,3 +96,12 @@ def task_delete(task_id: int):
     session.delete(task_id)
     session.commit()
     return task_id
+
+
+def get_tasks_status_false(user_id):
+    tasks = session.execute(select(
+        To_do_list).where(To_do_list.user_id == user_id).where(To_do_list.status == False))
+
+    all_tasks = tasks.scalars().all()
+
+    return all_tasks

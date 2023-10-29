@@ -131,8 +131,8 @@ def start(message):
     if message.text.startswith("Создать задачу"):
         message_lines = message.text.split("\n")
         try:
-            task_name = message_lines[1].split(":")[1]
-            task_descripton = message_lines[2].split(":")[1]
+            task_name = message_lines[1].split(":")[1].strip()
+            task_descripton = message_lines[2].split(":")[1].strip()
             task_urgency = message_lines[3].split(":")[1].strip()
             user_id = message.from_user.id
             status = False
@@ -145,6 +145,16 @@ def start(message):
             bot.send_message(
                 message.chat.id,
                 text='Необходимо установить «:»')
+    if message.text == "q":
+        user_id = message.from_user.id
+        a = clientDB.get_tasks_status_false(user_id)
+        c = 1
+        bot.send_message(
+            message.chat.id,
+            text="Если Вы хотите изменить статус задачи,\n"
+                 "Необходимо передать новые данные в формате:\n"
+                 "Задача №:«Необходимо написать»\n"
+                 "Статус: «Необходимо написать»")
 
 
 bot.polling(none_stop=True)

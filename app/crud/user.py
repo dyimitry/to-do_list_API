@@ -16,8 +16,11 @@ def create_user(new_user: UserCreateRequest) -> UserCreateResponse:
     if (db_user_model.user_id,) not in users:
 
         session.add(db_user_model)
-        session.commit()
-
+        try:
+            session.commit()
+        except:
+            session.rollback()
+            raise
     created_user_data: UserCreateResponse = UserCreateResponse(
         user_id=db_user_model.user_id,
         first_name=db_user_model.first_name,
