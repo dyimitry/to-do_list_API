@@ -4,7 +4,7 @@ from sqlalchemy import select
 
 from app.models import User
 from app.models.to_do_list import To_do_list
-from app.schemas.to_do_list import TaskCreateResponse, TaskCreateRequest, TaskUpdateRequest, TaskUpdate
+from app.schemas.to_do_list import TaskCreateResponse, TaskCreateRequest, TaskUpdateRequest, TaskUpdate, TasksRequest
 from app.core.db import session
 
 
@@ -98,10 +98,16 @@ def task_delete(task_id: int):
     return task_id
 
 
-def get_tasks_status_false(user_id):
-    tasks = session.execute(select(
-        To_do_list).where(To_do_list.user_id == user_id).where(To_do_list.status == False))
+def list_tasks(params: TasksRequest):
+    sql_query = select(To_do_list)
 
+    if params.user_id is not None:
+        sql_query = sql_query.where(To_do_list.user_id == params.user_id)
+    if params.task_id is not None:
+        sql_query = sql_query.where(To_do_list.id == params.task_id)
+    if params.status is not None:
+        sql_query = sql_query.where(To_do_list.status == params.status)
+
+    tasks = session.execute(sql_query)
     all_tasks = tasks.scalars().all()
-
     return all_tasks

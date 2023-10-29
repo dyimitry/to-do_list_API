@@ -12,6 +12,12 @@ class TaskCreateRequest(BaseModel):
     user_id: int
 
 
+class TasksRequest(BaseModel):
+    user_id: Optional[int] = None
+    task_id: Optional[int] = None
+    status: Optional[bool] = None
+
+
 class TaskCreateResponse(BaseModel):
     name: str
     description: str
