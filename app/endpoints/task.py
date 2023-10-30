@@ -3,9 +3,9 @@ from typing import List, Optional, Union
 from fastapi import APIRouter, Depends
 
 
-from app.crud.to_do_list import create_new_task, get_task_id, update_task, task_delete, list_tasks
+from app.crud.task import create_new_task, get_task_id, update_task, task_delete, list_tasks
 
-from app.schemas.to_do_list import (TaskCreateResponse, TaskCreateRequest, TaskResponse,
+from app.schemas.task import (TaskCreateResponse, TaskCreateRequest, TaskResponse,
                                     TaskUpdate, TaskUpdateRequest, TasksRequest, )
 
 router = APIRouter(prefix='/to_do_list', tags=['To_do_list'])

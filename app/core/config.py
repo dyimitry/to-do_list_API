@@ -10,12 +10,9 @@ class Settings(BaseSettings):
     token: str
     bot_backend_port: int
 
-    redis_host: str
-    redis_port: str
+
     # CELERY
 
-    celery_task_serializer: str
-    celery_result_serializer: str
 
 
     class Config:

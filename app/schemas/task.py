@@ -32,7 +32,7 @@ class TaskResponse(TaskCreateResponse):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class TaskUpdateRequest(BaseModel):
@@ -43,3 +43,6 @@ class TaskUpdateRequest(BaseModel):
 
 class TaskUpdate(TaskResponse):
     pass
+
+class LastNotificationUpdate(BaseModel):
+    last_notification: datetime

@@ -7,7 +7,7 @@ services:
     ports:
       - "5432:5432"
     env_file:
-      - .env_prod
+      - .env
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 10s
@@ -21,7 +21,7 @@ services:
       postgres-db:
         condition: service_healthy
     env_file:
-      - .env_prod
+      - .env
 
   backend:
     image: to_do_list_api
@@ -33,7 +33,7 @@ services:
       migration:
         condition: service_completed_successfully
     env_file:
-      - .env_prod
+      - .env
 
 #  bot:
 #    image: to_do_list_api

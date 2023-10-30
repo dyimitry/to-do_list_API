@@ -3,8 +3,8 @@ from fastapi.encoders import jsonable_encoder
 from sqlalchemy import select
 
 from app.models import User
-from app.models.to_do_list import To_do_list
-from app.schemas.to_do_list import TaskCreateResponse, TaskCreateRequest, TaskUpdateRequest, TaskUpdate, TasksRequest
+from app.models.task import Task
+from app.schemas.task import TaskCreateResponse, TaskCreateRequest, TaskUpdateRequest, TaskUpdate, TasksRequest
 from app.core.db import session
 
 
@@ -19,7 +19,7 @@ def create_new_task(task: TaskCreateRequest) -> TaskCreateResponse:
             detail='Такого пользователя не существует!',
         )
 
-    db_task_model = To_do_list(
+    db_task_model = Task(
         name=task.name,
         description=task.description,
         status=task.status,
@@ -42,16 +42,16 @@ def create_new_task(task: TaskCreateRequest) -> TaskCreateResponse:
     return created_task_data
 
 
-def get_tasks_userid(user_id):
-    tasks = session.execute(
-        select(To_do_list).where(To_do_list.user_id == user_id))
-    all_tasks = tasks.scalars().all()
-    return all_tasks
+# def get_tasks_userid(user_id):
+#     tasks = session.execute(
+#         select(Task).where(Task.user_id == user_id))
+#     all_tasks = tasks.scalars().all()
+#     return all_tasks
 
 
 def get_task_id(task_id: int):
     task_db = session.execute(
-        select(To_do_list).where(To_do_list.id == task_id)
+        select(Task).where(Task.id == task_id)
     )
     task = task_db.scalars().first()
     if task is None:
@@ -99,14 +99,14 @@ def task_delete(task_id: int):
 
 
 def list_tasks(params: TasksRequest):
-    sql_query = select(To_do_list)
+    sql_query = select(Task)
 
     if params.user_id is not None:
-        sql_query = sql_query.where(To_do_list.user_id == params.user_id)
+        sql_query = sql_query.where(Task.user_id == params.user_id)
     if params.task_id is not None:
-        sql_query = sql_query.where(To_do_list.id == params.task_id)
+        sql_query = sql_query.where(Task.id == params.task_id)
     if params.status is not None:
-        sql_query = sql_query.where(To_do_list.status == params.status)
+        sql_query = sql_query.where(Task.status == params.status)
 
     tasks = session.execute(sql_query)
     all_tasks = tasks.scalars().all()
