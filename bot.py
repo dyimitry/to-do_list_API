@@ -39,7 +39,7 @@ def start(message):
 
 
 @bot.message_handler(content_types=['text'])
-def start(message):
+def function(message):
     if message.text == "Создать новую задачу":
         bot.send_message(
             message.chat.id,
