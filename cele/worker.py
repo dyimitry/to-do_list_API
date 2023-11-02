@@ -13,7 +13,7 @@ def worker(task):
     bot = telebot.TeleBot(token)
     bot.send_message(
         task["user_id"],
-        text=f"ВЫполни задачу {task['name']}")
+        text=f"Не забудь выполнить задачу: {task['name']}")
 
     now = datetime.datetime.now()
     now_str = datetime.datetime.strftime(now, '%Y-%m-%dT%H:%M:%S.%f')
@@ -22,10 +22,10 @@ def worker(task):
         "last_notification": now_str
     }
 
-    url = f"http://{host}:{port}/to_do_list"
+    url = f"http://{host}:{port}/to_do_list/{task['id']}"
 
     response = requests.patch(url, json=body)
     if response.status_code != 200:
-        print("prishla sadknfksd")
+        raise Exception("Come answer no 200 ")
 
     return "uspex"

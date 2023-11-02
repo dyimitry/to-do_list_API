@@ -36,13 +36,15 @@ class TaskResponse(TaskCreateResponse):
 
 
 class TaskUpdateRequest(BaseModel):
-    name: Optional[str]
-    description: Optional[str]
-    status: Optional[bool]
+    name: Optional[str] = None
+    description: Optional[str] = None
+    status: Optional[bool] = None
+    last_notification: Optional[datetime] = None
 
 
-class TaskUpdate(TaskResponse):
-    pass
+# class TaskUpdate(TaskResponse):
+#     pass
+
 
 class LastNotificationUpdate(BaseModel):
     last_notification: datetime

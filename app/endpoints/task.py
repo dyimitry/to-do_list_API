@@ -2,11 +2,10 @@ from typing import List, Optional, Union
 
 from fastapi import APIRouter, Depends
 
-
 from app.crud.task import create_new_task, get_task_id, update_task, task_delete, list_tasks
 
 from app.schemas.task import (TaskCreateResponse, TaskCreateRequest, TaskResponse,
-                                    TaskUpdate, TaskUpdateRequest, TasksRequest, )
+                              TaskUpdateRequest, TasksRequest, )
 
 router = APIRouter(prefix='/to_do_list', tags=['To_do_list'])
 
@@ -23,7 +22,7 @@ def get_tasks(params: TasksRequest = Depends()):
     return tasks_models
 
 
-@router.patch('/{task_id}/', response_model=TaskUpdate)
+@router.patch('/{task_id}/', response_model=TaskResponse)
 def put_task(task_id: int, task: TaskUpdateRequest):
     change_task = update_task(task_id, task)
     return change_task

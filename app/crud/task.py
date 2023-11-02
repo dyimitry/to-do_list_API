@@ -4,7 +4,7 @@ from sqlalchemy import select
 
 from app.models import User
 from app.models.task import Task
-from app.schemas.task import TaskCreateResponse, TaskCreateRequest, TaskUpdateRequest, TaskUpdate, TasksRequest
+from app.schemas.task import TaskCreateResponse, TaskCreateRequest, TaskUpdateRequest, TasksRequest, TaskResponse
 from app.core.db import session
 
 
@@ -62,26 +62,28 @@ def get_task_id(task_id: int):
     return task
 
 
-def update_task(task_id: int, task: TaskUpdateRequest) -> TaskUpdate:
-    task_id = get_task_id(task_id)
+def update_task(task_id: int, task: TaskUpdateRequest) -> TaskResponse:
+    task_model = get_task_id(task_id)
+    obj_data = jsonable_encoder(task_model)
 
     update_data = task.dict(exclude_unset=True)
-    obj_data = jsonable_encoder(task_id)
 
     for field in obj_data:
         if field in update_data:
-            setattr(task_id, field, update_data[field])
+            setattr(task_model, field, update_data[field])
 
-    session.add(task_id)
+    session.add(task_model)
     session.commit()
 
-    change_task: TaskUpdate = TaskUpdate(
-        name=task_id.name,
-        description=task_id.description,
-        status=task_id.status,
-        user_id=task_id.user_id,
-        urgency=task_id.urgency,
-        id=task_id.id,
+    change_task: TaskResponse = TaskResponse(
+        name=task_model.name,
+        description=task_model.description,
+        status=task_model.status,
+        user_id=task_model.user_id,
+        urgency=task_model.urgency,
+        last_notification=task_model.last_notification,
+        created_at=task_model.created_at,
+        id=task_model.id,
     )
     return change_task
 
