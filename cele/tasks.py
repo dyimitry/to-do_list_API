@@ -7,8 +7,10 @@ import telebot
 from cele.engine import app_celery
 
 
-@app_celery.task
+# @app_celery.task
 def worker(task):
+    print("111111111111111111111111111111111111111111")
+    print(task)
     token = os.getenv("TOKEN")
     host = os.getenv("BOT_BACKEND_HOST")
     port = os.getenv("BOT_BACKEND_PORT")
