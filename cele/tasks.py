@@ -7,7 +7,7 @@ import telebot
 from cele.engine import app_celery
 
 
-# @app_celery.task
+@app_celery.task
 def worker(task):
     print("111111111111111111111111111111111111111111")
     print(task)
@@ -34,3 +34,6 @@ def worker(task):
         raise Exception("Come answer no 200 ")
 
     return "uspex"
+
+
+# celery -A cele.engine:app_celery worker --loglevel=info
