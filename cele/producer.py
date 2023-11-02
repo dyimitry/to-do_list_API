@@ -13,10 +13,10 @@ def passed_time_creation(task, time_after_do_send_created, time_after_do_send_no
         created_at = task.get("created_at")
 
         date_time_obj = datetime.datetime.strptime(created_at, '%Y-%m-%dT%H:%M:%S.%f')
-        if time_after_do_send_notification >= 5:
+        # time_after_do_send_notification >= 5:
 
-            time_after_do_send_notification = timedelta(hours=time_after_do_send_notification)
-        time_after_do_send_notification = timedelta(time_after_do_send_notification)
+        time_after_do_send_notification = timedelta(hours=time_after_do_send_notification)
+        # time_after_do_send_notification = timedelta(time_after_do_send_notification)
         day_after_created = date_time_obj + time_after_do_send_notification
 
         if day_after_created < now:

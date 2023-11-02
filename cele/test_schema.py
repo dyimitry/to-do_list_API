@@ -1,7 +1,7 @@
 from cele.producer import get_tasks_status_false
-from cele.worker import worker
+from cele.tasks import worker
 
 # нужен список задач producer
 result = get_tasks_status_false()
-for i in result:
-    print(worker(i))
+for task in result:
+    worker.delay(task)

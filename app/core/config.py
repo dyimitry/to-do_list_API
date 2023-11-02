@@ -9,10 +9,7 @@ class Settings(BaseSettings):
     bot_backend_host: str
     token: str
     bot_backend_port: int
-
-
-    # CELERY
-
+    CELERY_BROKER_URL: str
 
 
     class Config:
