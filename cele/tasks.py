@@ -6,9 +6,12 @@ import telebot
 
 from cele.engine import app_celery
 
+from dotenv import load_dotenv
+load_dotenv()
 
-@app_celery.task
-def worker(task):
+
+@app_celery.task(bind=True, queue="notification")
+def worker(self, task):
     print("111111111111111111111111111111111111111111")
     print(task)
     token = os.getenv("TOKEN")
@@ -31,9 +34,9 @@ def worker(task):
 
     response = requests.patch(url, json=body)
     if response.status_code != 200:
-        raise Exception("Come answer no 200 ")
+        raise Exception("Come answer no 200")
 
     return "uspex"
 
 
-# celery -A cele.engine:app_celery worker --loglevel=info
+# celery -A cele.engine:app_celery worker -Q notification -l info -P solo

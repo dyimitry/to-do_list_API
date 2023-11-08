@@ -53,6 +53,26 @@ services:
       - "15672:15672"
       - "5672:5672"
 
+#  worker:
+#    command:
+#    image:
+#
+#    environment:
+#      - ???
+#      - ??
+#    ports:
+#      - ??
+
+#  producer:
+#    command:
+#    image:
+#
+#    environment:
+#      - ???
+#      - ??
+#    ports:
+#      - ??
+
 
 volumes:
   postgres-db:
