@@ -11,8 +11,8 @@ from notification.producer import get_tasks_status_false
 load_dotenv()
 
 
-@app.task(bind=True, queue="notification")
-def worker(self, task):
+@app.task(queue="notification")
+def worker(task):
     print("111111111111111111111111111111111111111111")
     print(task)
     token = os.getenv("TOKEN")
@@ -38,8 +38,6 @@ def worker(self, task):
         print(response.status_code)
         print(response.text)
         raise Exception("Come answer no 200")
-
-    return "uspex"
 
 
 @app.task(name="producer")

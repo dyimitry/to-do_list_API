@@ -54,7 +54,7 @@ services:
       - "5672:5672"
     healthcheck:
       test: rabbitmq-diagnostics -q ping
-      interval: 5s
+      interval: 20s
       timeout: 10s
       retries: 3
 
@@ -71,7 +71,7 @@ services:
 
   beat:
     image: to_do_list_api
-    command: celery -A notification beat --loglevel=INFO
+    command: celery -A notification.engine beat --loglevel=INFO
     env_file:
       - .env_prod
     depends_on:
