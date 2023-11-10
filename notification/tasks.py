@@ -3,14 +3,15 @@ import os
 
 import requests
 import telebot
-
-from cele.engine import app_celery
-
 from dotenv import load_dotenv
+
+from notification.celery import app
+from notification.producer import get_tasks_status_false
+
 load_dotenv()
 
 
-@app_celery.task(bind=True, queue="notification")
+@app.task(bind=True, queue="notification")
 def worker(self, task):
     print("111111111111111111111111111111111111111111")
     print(task)
@@ -38,5 +39,13 @@ def worker(self, task):
 
     return "uspex"
 
+
+# @app.task(name="producer")
+# def producer():
+#     result = get_tasks_status_false()
+#     print(f"received count task: {len(result)}")
+#     for task in result:
+#         print(f"send task: {task}")
+#         worker.apply_async(args=(task,))
 
 # celery -A cele.engine:app_celery worker -Q notification -l info -P solo

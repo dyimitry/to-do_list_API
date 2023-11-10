@@ -50,7 +50,8 @@ def get_tasks_status_false():
 
     for task in result_json:
         if task["urgency"] == "Не срочно":  # Не срочно !!!!!!!!!!!!
-            result = passed_time_creation(task=task, time_after_do_send_created=1, time_after_do_send_notification=1,now=now)
+            result = passed_time_creation(task=task, time_after_do_send_created=1, time_after_do_send_notification=1,
+                                          now=now)
             if result:
                 list_tasks.append(task)
             continue
@@ -69,7 +70,6 @@ def get_tasks_status_false():
         continue
 
     return list_tasks
-
 
 # p = get_tasks_status_false()
 # print(p)

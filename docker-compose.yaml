@@ -52,26 +52,32 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 5s
+      timeout: 10s
+      retries: 3
 
-#  worker:
-#    command:
-#    image:
-#
-#    environment:
-#      - ???
-#      - ??
-#    ports:
-#      - ??
+  worker:
+    image: to_do_list_api
+#    command: celery -A tasks worker -B -Q celery -l info
+    command: celery -A notification worker -l info
+    env_file:
+      - .env_prod
+    depends_on:
+      rabbit:
+        condition: service_healthy
+#  command: celery -A cele.engine:app_celery worker -Q notification -l info
 
-#  producer:
-#    command:
-#    image:
-#
-#    environment:
-#      - ???
-#      - ??
-#    ports:
-#      - ??
+
+  beat:
+    image: to_do_list_api
+    command: celery -A notification beat --loglevel=INFO
+    env_file:
+      - .env_prod
+    depends_on:
+      rabbit:
+        condition: service_healthy
 
 
 volumes:

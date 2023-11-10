@@ -1,5 +1,5 @@
-from cele.producer import get_tasks_status_false
-from cele.tasks import worker
+from notification.producer import get_tasks_status_false
+from notification.tasks import worker
 
 # нужен список задач producer
 result = get_tasks_status_false()

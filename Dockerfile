@@ -13,7 +13,7 @@ COPY ./alembic.ini /src
 
 COPY ./app /src/app
 COPY ./backend.py /src
-
+COPY ./notification /src/notification
 COPY ./telegram_bot /src/telegram_bot
 COPY ./bot.py /src
 
