@@ -5,7 +5,7 @@ import requests
 import telebot
 from dotenv import load_dotenv
 
-from notification.celery import app
+from notification.engine import app
 from notification.producer import get_tasks_status_false
 
 load_dotenv()
@@ -35,6 +35,8 @@ def worker(self, task):
 
     response = requests.patch(url, json=body)
     if response.status_code != 200:
+        print(response.status_code)
+        print(response.text)
         raise Exception("Come answer no 200")
 
     return "uspex"
