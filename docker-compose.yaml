@@ -60,7 +60,7 @@ services:
 
   worker:
     image: to_do_list_api
-    command: celery -A notification.engine worker -Q notification -l info
+    command: celery -A notification.engine worker -Q notification
     env_file:
       - .env_prod
     depends_on:
@@ -71,7 +71,7 @@ services:
 
   beat:
     image: to_do_list_api
-    command: celery -A notification.engine beat --loglevel=INFO
+    command: celery -A notification.engine beat
     env_file:
       - .env_prod
     depends_on:
