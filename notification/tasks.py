@@ -42,12 +42,12 @@ def worker(self, task):
     return "uspex"
 
 
-# @app.task(name="producer")
-# def producer():
-#     result = get_tasks_status_false()
-#     print(f"received count task: {len(result)}")
-#     for task in result:
-#         print(f"send task: {task}")
-#         worker.apply_async(args=(task,))
+@app.task(name="producer")
+def producer():
+    result = get_tasks_status_false()
+    print(f"received count task: {len(result)}")
+    for task in result:
+        print(f"send task: {task}")
+        worker.apply_async(args=(task,))
 
 # celery -A cele.engine:app_celery worker -Q notification -l info -P solo
