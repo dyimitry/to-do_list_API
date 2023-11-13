@@ -16,7 +16,7 @@ app = Celery("notification", broker=settings.CELERY_BROKER_URL, backend='rpc://'
 app.conf.beat_schedule = {
     'refresh': {
         'task': 'producer',
-        'schedule': timedelta(seconds=5),
+        'schedule': timedelta(seconds=1),
         'options': {
             'queue': 'notification',
         }

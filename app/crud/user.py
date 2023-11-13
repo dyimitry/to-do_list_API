@@ -38,7 +38,7 @@ def get_users():
 
 def get_user_id(user_id: int):
     db_user_id = session.execute(
-        select(User).where(User.id == user_id)
+        select(User).where(User.user_id == user_id)
     )
     db_user = db_user_id.scalars().first()
     return db_user
